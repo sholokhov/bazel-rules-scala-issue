@@ -1,6 +1,6 @@
 workspace(name = "scalapb_bug_example")
 
-rules_scala_version="8092d5f6165a8d9c4797d5f089c1ba4eee3326b1"
+rules_scala_version="e1f66970af3c4a88ec742a9c0a85710983f5b2d2"
 scala_version = "2.12.8"
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
