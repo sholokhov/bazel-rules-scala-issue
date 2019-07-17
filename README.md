@@ -1,15 +1,19 @@
-`bazel build //scala-app:scala_app_binary`
+`bazel build //...`
 
 Fails with:
 ```
-/BUILD.bazel:4:1: scala @io_bazel_rules_scala//scala-app:messages_proto-fast failed (Exit 1) scalac failed: error executing command bazel-out/host/bin/external/io_bazel_rules_scala/src/java/io/bazel/rulesscala/scalac/scalac @bazel-out/darwin-fastbuild/bin/scala-app/messages_proto-fast_scalac_worker_input
-
-Use --sandbox_debug to see verbose messages from the sandbox
-bazel-out/darwin-fastbuild/bin/scala-app/tmp2998821839141030412/org/example/AuthenticatedData.scala:7: error: object converters is not a member of package org.example
-import org.example.converters.ProtobufWrappers._
-                   ^
+... creating scalapb files //shared/protocols:C failed (Exit 1)
+java.nio.file.FileAlreadyExistsException: external/com_google_protobuf/google/protobuf/timestamp.proto
+        at java.base/sun.nio.fs.UnixCopyFile.copy(UnixCopyFile.java:573)
+        at java.base/sun.nio.fs.UnixFileSystemProvider.copy(UnixFileSystemProvider.java:254)
+        at java.base/java.nio.file.Files.copy(Files.java:1294)
+        at scripts.ScalaPBGenerator.$anonfun$setupIncludedProto$1(ScalaPBGenerator.scala:42)
+        at scala.collection.immutable.List.foreach(List.scala:392)
+        at scripts.ScalaPBGenerator.setupIncludedProto(ScalaPBGenerator.scala:37)
+        at scripts.ScalaPBGenerator.processRequest(ScalaPBGenerator.scala:53)
+        at io.bazel.rulesscala.worker.GenericWorker.runPersistentWorker(GenericWorker.java:45)
+        at io.bazel.rulesscala.worker.GenericWorker.run(GenericWorker.java:111)
+        at scripts.ScalaPBWorker$.main(ScalaPBGenerator.scala:26)
+        at scripts.ScalaPBWorker.main(ScalaPBGenerator.scala)
 
 ```
-
-Seems like after switching on aspect-based protobuf compilation in `rules_scala` it's not longer possible to depend on
-`scala_library` so it breaks custom type mapping.
