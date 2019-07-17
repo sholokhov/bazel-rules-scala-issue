@@ -1,0 +1,11 @@
+load("@io_bazel_rules_scala//scala:scala.bzl", "scala_binary")
+
+scala_binary(
+    name = "scala_app_binary",
+    srcs = glob(["src/main/**/*.scala"]),
+    main_class = "org.example.Application",
+    visibility = [ "//visibility:public" ],
+    deps = [
+        "//shared/protocols:all_events_scala_proto",
+    ],
+)

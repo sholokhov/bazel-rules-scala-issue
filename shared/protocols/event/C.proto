@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package event;
+option java_package = "com.example.event";
+
+import "shared/protocols/event/A.proto";
+import "shared/protocols/event/B.proto";
+
+message ServiceEvent {
+    int32 id = 1;
+    oneof event {
+        A evtA = 10;
+        B evtB = 11;
+    }
+}

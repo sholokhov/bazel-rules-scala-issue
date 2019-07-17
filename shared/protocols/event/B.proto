@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package event;
+option java_package = "com.example.event";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+
+message B {
+    google.protobuf.StringValue str = 1;
+    google.protobuf.Timestamp ts    = 2;
+}
